@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_1"
+                  targetNamespace="http://camunda.org/examples">
+
+  <bpmn:process id="process_call_n8n" name="Call n8n workflow" isExecutable="true">
+
+    <bpmn:startEvent id="StartEvent_1" name="Start" />
+
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="ServiceTask_CallN8n" />
+
+    <bpmn:serviceTask id="ServiceTask_CallN8n"
+                      name="Call n8n webhook"
+                      camunda:class="com.example.demo.delegate.N8nCallDelegate"/>
+
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="ServiceTask_CallN8n" targetRef="EndEvent_1" />
+
+    <bpmn:endEvent id="EndEvent_1" name="End" />
+
+  </bpmn:process>
+
+  <!-- =================== BPMN DIAGRAM =================== -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_call_n8n">
+
+      <!-- Start Event -->
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="160" y="150" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <!-- Service Task -->
+      <bpmndi:BPMNShape id="ServiceTask_CallN8n_di" bpmnElement="ServiceTask_CallN8n">
+        <dc:Bounds x="260" y="130" width="120" height="80" />
+      </bpmndi:BPMNShape>
+
+      <!-- End Event -->
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="430" y="150" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <!-- Flow 1: Start → Service Task -->
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="196" y="168" />
+        <di:waypoint x="260" y="168" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Flow 2: Service Task → End -->
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="380" y="168" />
+        <di:waypoint x="430" y="168" />
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</bpmn:definitions>

@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.6'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    camundaVersion = '7.19.0'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.camunda.bpm:camunda-bom:${camundaVersion}"
+    }
+}
+
+dependencies {
+    // Spring Boot web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Camunda Spring Boot starter (community)
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.19.0'
+
+    // Reactive webclient for calling n8n
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // Logging and utilities
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+    // Test (optional)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+bootJar {
+    launchScript()
+}
