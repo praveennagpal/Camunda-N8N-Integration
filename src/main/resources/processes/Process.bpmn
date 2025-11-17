@@ -8,15 +8,16 @@
                   id="Definitions_1"
                   targetNamespace="http://camunda.org/examples">
 
-  <bpmn:process id="process_call_n8n" name="Call n8n workflow" isExecutable="true">
+  <bpmn:process id="process_call_n8n" name="Call n8n workflow" isExecutable="true" camunda:historyTimeToLive="30">
 
     <bpmn:startEvent id="StartEvent_1" name="Start" />
 
     <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="ServiceTask_CallN8n" />
 
     <bpmn:serviceTask id="ServiceTask_CallN8n"
-                      name="Call n8n webhook"
-                      camunda:class="com.example.demo.delegate.N8nCallDelegate"/>
+              name="Call n8n webhook"
+              camunda:type="external"
+              camunda:topic="call-n8n"/>
 
     <bpmn:sequenceFlow id="Flow_2" sourceRef="ServiceTask_CallN8n" targetRef="EndEvent_1" />
 

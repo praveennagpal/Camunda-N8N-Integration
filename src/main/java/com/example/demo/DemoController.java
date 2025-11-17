@@ -1,25 +1,26 @@
 package com.example.demo;
 
-import org.camunda.bpm.engine.RuntimeService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/demo")
 public class DemoController {
+    private final ProcessStarterService processStarterService;
 
-    private final RuntimeService runtimeService;
-
-    public DemoController(RuntimeService runtimeService) {
-        this.runtimeService = runtimeService;
+    public DemoController(ProcessStarterService processStarterService) {
+        this.processStarterService = processStarterService;
     }
 
     @PostMapping("/start")
-    public ResponseEntity<String> startProcess(@RequestBody(required = false) Map<String, Object> variables) {
+    public ResponseEntity<Object> startProcess(@RequestBody(required = false) Map<String, Object> variables) {
         String businessKey = "demo-" + System.currentTimeMillis();
-        runtimeService.startProcessInstanceByKey("process_call_n8n", businessKey, variables == null ? Map.of() : variables);
-        return ResponseEntity.ok("started: " + businessKey);
+        Object n8nResult = processStarterService.startProcessAndGetN8nResult("process_call_n8n", businessKey, variables == null ? Map.of() : variables);
+        return ResponseEntity.ok(n8nResult);
     }
 }
