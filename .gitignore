@@ -7,7 +7,8 @@
 # BlueJ files
 *.ctxt
 
-.gradle
+.gradle\**
+.gradle/build
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -46,3 +47,5 @@ gradle-app.setting
 .gradletasknamecache
 /.idea
 .DS_Store
+
+.gradle/
