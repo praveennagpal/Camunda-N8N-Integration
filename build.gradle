@@ -23,6 +23,13 @@ dependencyManagement {
 }
 
 dependencies {
+            // Camunda BPM Data for process variable handling
+            implementation 'io.holunda.data:camunda-bpm-data:1.6.0'
+        // Camunda webapps (Cockpit, Tasklist, Admin)
+        implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.22.0'
+        // Lombok for annotation-based code generation
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
     // Spring Boot web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -43,6 +50,9 @@ dependencies {
 
     // Camunda External Task Client
     implementation 'org.camunda.bpm:camunda-external-task-client:7.22.0'
+
+    // Guava
+    implementation 'com.google.guava:guava:32.1.2-jre'
 }
 
 tasks.withType(JavaCompile) {

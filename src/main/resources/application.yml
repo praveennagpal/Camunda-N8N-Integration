@@ -14,3 +14,11 @@ camunda:
       id: demo
       password: demo
       firstName: Demo
+      
+externalTask:
+  defaultLockDurationInMillis: 180000
+  workerFixedDelayInMillis: 500
+  workerInitialDelayInMillis: 1000
+  retryCount: 3
+  maxTask: 5
+  retryTimeOut: 10
